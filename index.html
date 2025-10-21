@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Avenyr Streetwear</title>
+  <title>Avenyr Stud.</title>
 
-  <!-- Premium Font -->
+  <!-- Font & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2e0e6b6b5.js" crossorigin="anonymous"></script>
 
   <style>
     * {
@@ -104,7 +106,7 @@
       }
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
       height: 100vh;
       display: flex;
@@ -128,7 +130,7 @@
       max-width: 600px;
     }
 
-    /* Catalog Section */
+    /* Catalog */
     .catalog {
       background-color: #111;
       padding: 100px 60px;
@@ -180,6 +182,34 @@
       text-align: center;
     }
 
+    /* Social Icons */
+    .socials {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .socials a {
+      color: #fff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      background-color: #fff;
+      color: #000;
+      transform: scale(1.1);
+    }
+
     /* Footer */
     footer {
       background: #000;
@@ -206,7 +236,6 @@
 </head>
 
 <body>
-
   <!-- Header -->
   <header>
     <a href="#home" class="logo">
@@ -227,12 +256,67 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero" id="home">
-    <h1>Avenyr Streetwear</h1>
+    <h1>Avenyr Stud.</h1>
     <p>Bold • Minimal • Premium — redefining modern streetwear culture through exclusive design.</p>
   </section>
 
-  <!-- Catalog Section -->
+  <!-- Catalog -->
   <section class="catalog" id="catalog">
-    <
+    <h2>Latest Collection</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246" alt="T-Shirt">
+        <h3>Classic Tee</h3>
+        <p>Minimal design made with premium fabric for daily comfort.</p>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb" alt="Hoodie">
+        <h3>Oversized Hoodie</h3>
+        <p>Soft, warm, and effortless — true streetwear comfort.</p>
+      </div>
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1528701800489-20be0f2e9e2b" alt="Cap">
+        <h3>Logo Cap</h3>
+        <p>Complete your fit with our signature logo headwear.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Avenyr Stud.</h2>
+    <p>Avenyr Stud. is a Malaysian streetwear label built on bold simplicity. Each piece reflects confidence, creativity, and timeless urban style.</p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Connect with Us</h2>
+    <p>Follow Avenyr Stud. for the latest drops and updates:</p>
+
+    <div class="socials">
+      <a href="https://www.instagram.com/avenyr.stud" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@avenyr.stud" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </div>
+
+    <p style="margin-top:25px;">Email: <a href="mailto:avenyrstud@gmail.com" style="color:#fff;text-decoration:underline;">avenyrstud@gmail.com</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Avenyr Stud. All rights reserved.
+  </footer>
+
+  <!-- JS -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbar = document.getElementById('navbar');
+
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('active');
+      menuToggle.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
