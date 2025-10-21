@@ -1,0 +1,176 @@
+import React, { useState } from "react";
+
+// Avenyr - Single-file React component (Tailwind CSS required in project) // Default export is the main App component so this file can be previewed. // ------------------------------------------------------------- // Features included: // - Black & white premium streetwear theme // - Responsive product grid with quick-view modal // - Search + category filter // - Header (logo), Hero, Footer // - Sample product data (replace with your images & SKU) // -------------------------------------------------------------
+
+export default function AvenyrCatalog() { const [query, setQuery] = useState(""); const [category, setCategory] = useState("All"); const [selected, setSelected] = useState(null);
+
+const products = [ { id: 1, name: "Avenyr Box Logo Tee", category: "Tops", price: 119, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b6c9f6f9c86ad4f6f0a7b0d63f1977a", desc: "Soft heavyweight cotton, premium puff logo. Limited drop.", }, { id: 2, name: "Avenyr Oversized Hoodie", category: "Outerwear", price: 249, img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8df414efb877cd3bca7a1d6a3f3f0e71", desc: "Premium fleece, structured hood, tailored heavy drape.", }, { id: 3, name: "Avenyr Track Sweatpants", category: "Bottoms", price: 149, img: "https://images.unsplash.com/photo-1520975681913-3a2d3be4d51c?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f1b9a3dd8d1b5f4c0ed7a1f3a6d7c7f", desc: "Tapered fit, elastic cuff, premium heavyweight knit.", }, { id: 4, name: "Avenyr Minimal Cap", category: "Accessories", price: 59, img: "https://images.unsplash.com/photo-1514995669114-0f1b8a6d86f4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b8d3b7a9f0c8d3e6f5b2a1c0a9f1234", desc: "Embossed logo, structured 6-panel." } ];
+
+const categories = ["All", "Tops", "Outerwear", "Bottoms", "Accessories"];
+
+const filtered = products.filter(p => { const matchesQuery = (p.name + p.desc).toLowerCase().includes(query.toLowerCase()); const matchesCategory = category === "All" || p.category === category; return matchesQuery && matchesCategory; });
+
+return ( <div className="min-h-screen bg-white text-black font-sans"> {/* Container /} <div className="max-w-7xl mx-auto px-6 py-8"> {/ Header */} <header className="flex items-center justify-between py-4"> <div className="flex items-center gap-4"> <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-black text-white text-lg font-bold">AV</div> <div> <h1 className="text-2xl tracking-tight font-extrabold">Avenyr</h1> <p className="text-xs uppercase">Streetwear — Premium Drop</p> </div> </div>
+
+<nav className="flex items-center gap-4">
+        <button className="px-4 py-2 text-sm uppercase tracking-wide border border-black rounded-lg">Shop</button>
+        <button className="px-4 py-2 text-sm uppercase tracking-wide rounded-lg bg-black text-white">Contact</button>
+      </nav>
+    </header>
+
+    {/* Hero */}
+    <section className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 className="text-4xl md:text-5xl font-bold">Avenyr — Streetwear, Reimagined</h2>
+        <p className="mt-4 text-gray-700">Black & white capsule. Premium cuts. Limited drops designed for presence.</p>
+        <div className="mt-6 flex gap-3">
+          <button className="px-6 py-3 border border-black uppercase text-sm font-semibold rounded-lg">Shop Latest</button>
+          <button className="px-6 py-3 uppercase text-sm font-semibold rounded-lg">Lookbook</button>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden shadow-xl bg-black text-white aspect-[4/3] flex items-center justify-center">
+        <img src="https://images.unsplash.com/photo-1520975919990-6a3bc5c2a3c7?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b8fc7f5b6e8d2c6f1a8e9b6c4d3a2e1" alt="Avenyr hero" className="object-cover w-full h-full opacity-80"/>
+      </div>
+    </section>
+
+    {/* Search + Filters */}
+    <div className="mt-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex items-center gap-3 w-full md:w-1/2">
+        <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search styles, names..." className="flex-1 px-4 py-3 border rounded-lg" />
+        <div className="hidden md:flex items-center gap-2">
+          {categories.map(cat => (
+            <button key={cat} onClick={() => setCategory(cat)} className={`px-3 py-2 text-sm rounded ${category===cat? 'bg-black text-white':'border'}`}>{cat}</button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-gray-600">Showing <strong>{filtered.length}</strong></span>
+        <select onChange={e => setCategory(e.target.value)} value={category} className="px-3 py-2 border rounded">
+          {categories.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </div>
+    </div>
+
+    {/* Products grid */}
+    <main className="mt-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filtered.map(product => (
+          <article key={product.id} className="group cursor-pointer" onClick={() => setSelected(product)}>
+            <div className="aspect-square w-full rounded-xl overflow-hidden shadow-md">
+              <img src={product.img} alt={product.name} className="object-cover w-full h-full transform group-hover:scale-105 transition" />
+            </div>
+            <div className="mt-3">
+              <h3 className="font-semibold">{product.name}</h3>
+              <p className="text-sm text-gray-600">{product.category}</p>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="font-bold">RM {product.price}</span>
+                <button onClick={(e)=>{e.stopPropagation(); setSelected(product);}} className="px-3 py-1 border rounded">Quick view</button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {filtered.length === 0 && (
+        <div className="mt-12 text-center text-gray-600">No products found. Try another search or check back soon.</div>
+      )}
+    </main>
+
+    {/* Footer */}
+    <footer className="mt-16 border-t pt-8 pb-6 text-sm text-gray-600">
+      <div className="flex flex-col md:flex-row items-center justify-between">
+        <div>
+          <strong>Avenyr</strong>
+          <div className="mt-1">Premium streetwear. Black & white capsule.</div>
+        </div>
+        <div className="mt-4 md:mt-0">© {new Date().getFullYear()} Avenyr — All Rights Reserved</div>
+      </div>
+    </footer>
+  </div>
+
+  {/* Quick-view modal */}
+  {selected && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+      <div className="bg-white rounded-2xl max-w-3xl w-full mx-4 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="aspect-[4/3]">
+            <img src={selected.img} alt={selected.name} className="object-cover w-full h-full" />
+          </div>
+          <div className="p-6">
+            <h3 className="text-2xl font-bold">{selected.name}</h3>
+            <p className="mt-2 text-gray-600">{selected.desc}</p>
+            <p className="mt-4 text-xl font-semibold">RM {selected.price}</p>
+            <div className="mt-6 flex gap-3">
+              <button className="px-6 py-3 rounded-lg bg-black text-white">Add to cart</button>
+              <button onClick={() => setSelected(null)} className="px-6 py-3 rounded-lg border">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* Small aesthetics: footer stripe */}
+  <div className="fixed bottom-4 right-4 text-xs bg-white/90 px-3 py-2 rounded-lg border">Avenyr • Black & White</div>
+</div>
+
+); }
+
+/* README (Quick setup + GitHub deploy instructions)
+
+This single-file component is meant to be used inside a React + Tailwind project. Follow these steps to get it online on GitHub + GitHub Pages (or Vercel):
+
+1. Create a new repo on GitHub (e.g. 'avenyr-catalog').
+
+
+2. Locally create a new Vite React app (recommended): npm create vite@latest avenyr-catalog -- --template react cd avenyr-catalog npm install
+
+
+3. Install Tailwind CSS (official quickstart): npm install -D tailwindcss postcss autoprefixer npx tailwindcss init -p
+
+// tailwind.config.cjs example: module.exports = { content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"], theme: { extend: {} }, plugins: [], }
+
+// src/index.css @tailwind base; @tailwind components; @tailwind utilities;
+
+
+4. Replace src/App.jsx with this file's contents (or import the component). Ensure src/main.jsx imports './index.css'.
+
+
+5. Run locally to verify: npm run dev
+
+
+6. Push to GitHub: git init git add . git commit -m "Initial Avenyr catalog" git branch -M main git remote add origin https://github.com/<your-username>/avenyr-catalog.git git push -u origin main
+
+
+7. Deploy options:
+
+GitHub Pages (static): build the project (npm run build) and enable GitHub Pages from gh-pages branch or use actions.
+
+Vercel (easy): connect the repo to Vercel for automatic deploys. Use 'npm run build' as the build command and 'dist' as the output (Vite).
+
+
+
+
+Tips to make it more premium:
+
+Use custom fonts (e.g., Inter + Playfair Display), pair a condensed display for headings.
+
+Replace sample images with high-res lookbook shots and use WebP.
+
+Add a small microanimation on hover using Framer Motion.
+
+Integrate Stripe checkout or a simple Netlify Form for orders.
+
+
+If you want, I can also:
+
+Generate a ready-to-upload zip file of the project structure.
+
+Create the GitHub repository for you (I will give exact git commands to run locally).
+
+Add a simple cart + checkout flow.
+
+
+*/
